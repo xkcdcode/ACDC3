@@ -1,16 +1,17 @@
 package nics.crypto;
 
 import it.unisa.dia.gas.jpbc.Element;
-import java.util.Arrays;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
  * @author david
  */
-public class Tuple {
-
-    private Element[] tuple;
+public class Tuple{
+	
+	public Element[] tuple;
 
     public Tuple(Element ... t) {
         tuple = Arrays.copyOf(t, t.length);
@@ -44,23 +45,15 @@ public class Tuple {
         return s.append(">").toString();
     }
 
-    /*
-    public byte[] toBytes(){
+    public ArrayList<byte[]> toBytes()
+    {
 
-        ArrayList<byte[]> result = new ArrayList<byte[]>();
+    	ArrayList<byte[]> result = new ArrayList<byte[]>();
 
-        int length = 0;
         for(Element e : tuple){
             byte[] b = e.toBytes();
-            length += b.length;
-
-            Array
+            result.add(b);
         }
-
-
-
-        return ;
+        return result;
     }
-*/
-
 }

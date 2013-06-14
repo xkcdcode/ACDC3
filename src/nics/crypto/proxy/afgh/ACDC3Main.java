@@ -6,9 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-
-
-
 /**
 *
 * @author Ali Sajjad
@@ -48,13 +45,9 @@ public class ACDC3Main {
 
         // Plain Text
         
-        //String message = "ali sajjad";
-        
         File plainText = new File("plain.txt");
         
         log(plainText.getAbsolutePath());
-        
-        //Element m1 = AFGH.stringToElement(message, global.getG2());
         
         byte[] b = FileUtils.readFileToByteArray(plainText);
 		
@@ -62,19 +55,31 @@ public class ACDC3Main {
         
         // Encryption into ciphertext c_a
         
-        //Tuple c_a = AFGH.secondLevelEncryption(m1, pk_a_ppp, global);
-        
         Tuple c_aFile = AFGH.secondLevelEncryption(m1File, pk_a_ppp, global);
         
         // Send c_aFile to TTP ???
 
-        PairingPreProcessing e_ppp = global.getE().pairing(rk_T_b);
+        PairingPreProcessing e_ppp = global.getE().pairing(rk_a_T);
+        
+        // Re-Encryption into ciphertext c_T
+        
+        Tuple c_TFile = AFGH.reEncryption(c_aFile, rk_a_T, e_ppp);
+        
+        // Decryption by TTP ???
+        
+        Element sk_T_inverse = sk_T.invert();
+        
+        Element mTFile = AFGH.firstLevelDecryptionPreProcessing(c_TFile, sk_T_inverse, global);
+        
+        //String result = new String(m2.toBytes()).trim();
+        
+        FileUtils.writeByteArrayToFile(new File("TTP.txt"), mTFile.toBytes());
         
         // Re-Encryption into ciphertext c_b
         
-        //Tuple c_b = AFGH.reEncryption(c_a, rk_a_b, e_ppp);
+        PairingPreProcessing e_pppT = global.getE().pairing(rk_T_b);
         
-        Tuple c_bFile = AFGH.reEncryption(c_aFile, rk_T_b, e_ppp);
+        Tuple c_bFile = AFGH.reEncryption(c_TFile, rk_T_b, e_pppT);
 
         // Decryption by Bob
         
