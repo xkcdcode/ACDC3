@@ -43,7 +43,7 @@ public class Main {
 
         // Plain Text
         
-        File plainText = new File("leo.txt");
+        File plainText = new File("plain.txt");
         
         log(plainText.getAbsolutePath());
         

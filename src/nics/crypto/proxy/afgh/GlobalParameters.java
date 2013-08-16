@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package nics.crypto.proxy.afgh;
 
 import it.unisa.dia.gas.jpbc.CurveGenerator;
@@ -19,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +24,13 @@ import java.util.logging.Logger;
  *
  * @author david
  */
-public class GlobalParameters {
+public class GlobalParameters implements Serializable {
 
-    private int rBits, qBits;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4962857197842083479L;
+	private int rBits, qBits;
     private Pairing e;
 	private Field G1, G2, Zq;
     private Element g, Z;
